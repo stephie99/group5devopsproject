@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Light blue background */
+            color: #333; /* Dark text color */
+            padding: 20px;
+            text-align: center; /* Centered text for headings */
+        }
+        h1 {
+            color: #4caf50; /* Green for the main heading */
+        }
+        label {
+            display: block; /* Block display for labels */
+            margin: 10px 0 5px; /* Spacing for labels */
+            text-align: left; /* Align label text to the left */
+        }
+        input[type="text"], input[type="password"] {
+            width: calc(100% - 20px); /* Full width minus padding */
+            padding: 10px; /* Padding inside inputs */
+            border: 1px solid #ccc; /* Light gray border */
+            border-radius: 4px; /* Rounded corners */
+            margin-bottom: 15px; /* Space below each input */
+        }
+        button {
+            padding: 10px 15px; /* Padding inside button */
+            background-color: #4caf50; /* Green button */
+            color: white; /* White text */
+            border: none; /* No border */
+            border-radius: 4px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: background-color 0.3s ease; /* Smooth transition */
+            width: 20%; /* Set button width */
+            margin-top: 20px; /* Space above button */
+        }
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+        .link-button {
+            display: inline-block; /* Inline block for link button */
+            margin-top: 10px; /* Space above the link button */
+            padding: 10px 15px; /* Padding for the link button */
+            background-color: #2196F3; /* Blue for the link button */
+            color: white; /* White text */
+            text-decoration: none; /* No underline */
+            border-radius: 4px; /* Rounded corners */
+        }
+        .link-button:hover {
+            background-color: #1976D2; /* Darker blue on hover */
+        }
+    </style>
+    <title>Edit Profile</title>
+</head>
+<body>
+<h1>Edit Profile</h1>
+<form action="/students/update" method="post">
+    <input type="hidden" th:value="${student.studentId}" name="studentId"/>
+    
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" th:value="${student.username}" required>
+    
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" placeholder="Leave blank to keep current password">
+    
+    <label for="firstname">First Name:</label>
+    <input type="text" id="firstname" name="firstname" th:value="${student.firstname}" required>
+    
+    <label for="lastname">Last Name:</label>
+    <input type="text" id="lastname" name="lastname" th:value="${student.lastname}" required>
+    
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" th:value="${student.address}" required>
+    
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city" th:value="${student.city}" required>
+    
+    <label for="postalCode">Postal Code:</label>
+    <input type="text" id="postalCode" name="postalCode" th:value="${student.postalCode}" required>
+    
+    <button type="submit">Update Profile</button>
+</form>
+<a class="link-button" href="/">Go to Homepage</a>
+</body>
+</html>

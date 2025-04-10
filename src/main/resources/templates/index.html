@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css"> <!-- External CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Light blue background */
+            color: #333; /* Dark text color */
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #4caf50; /* Green for the main heading */
+        }
+        h2 {
+            color: #2196F3; /* Blue for subheadings */
+        }
+        form {
+            background-color: white; /* White background for forms */
+            border-radius: 8px; /* Rounded corners */
+            padding: 20px;
+            margin: 20px auto; /* Center the form */
+            width: 300px; /* Set a fixed width */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px; /* Spacing for labels */
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%; /* Full width for inputs */
+            padding: 10px; /* Padding inside inputs */
+            border: 1px solid #ccc; /* Light gray border */
+            border-radius: 4px; /* Rounded corners */
+            margin-bottom: 15px; /* Space below each input */
+        }
+        input[type="submit"] {
+            width: 100%; /* Full width for submit button */
+            padding: 10px; /* Padding inside button */
+            border: none; /* No border */
+            border-radius: 4px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: background-color 0.3s ease; /* Smooth transition */
+        }
+        input[type="submit"].register {
+            background-color: #4caf50; /* Green for Register button */
+            color: white; /* White text */
+        }
+        input[type="submit"].register:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+        input[type="submit"].login {
+            background-color: #2196F3; /* Blue for Login button */
+            color: white; /* White text */
+        }
+        input[type="submit"].login:hover {
+            background-color: #1976D2; /* Darker blue on hover */
+        }
+        .error {
+            color: red; /* Red for error messages */
+            margin-bottom: 15px; /* Space below error message */
+        }
+    </style>
+    <title>Student Enrollment</title>
+</head>
+<body>
+    <h1>Enrollment Page</h1>
+    
+    <h2>New Student? Please Register Here.</h2>
+    <form th:action="@{/students/register}" th:object="${student}" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" th:field="*{username}" required/>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" th:field="*{password}" required/>
+
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname" th:field="*{firstname}" required/>
+
+        <label for="lastname">Last Name:</label>
+        <input type="text" id="lastname" th:field="*{lastname}" required/>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" th:field="*{address}" required/>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" th:field="*{city}" required/>
+
+        <label for="postalCode">Postal Code:</label>
+        <input type="text" id="postalCode" th:field="*{postalCode}" required/>
+
+        <input class="register" type="submit" value="Register"/>
+    </form>
+
+    <h2>Already Enrolled? Please Login Here.</h2>
+    <div th:if="${loginError}" class="error">{{loginError}}</div>
+    <form th:action="@{/students/login}" th:object="${loginForm}" method="post">
+        <label for="loginUsername">Username:</label>
+        <input type="text" id="loginUsername" th:field="*{username}" required/>
+
+        <label for="loginPassword">Password:</label>
+        <input type="password" id="loginPassword" th:field="*{password}" required/>
+
+        <input class="login" type="submit" value="Login"/>
+    </form>
+
+</body>
+</html>
