@@ -5,70 +5,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles.css"> <!-- External CSS -->
     <style>
+        /* General body styling */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8ff; /* Light blue background */
-            color: #333; /* Dark text color */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #f0f8ff, #cce7ff); 
+            color: #333;
             padding: 20px;
             text-align: center;
+            margin: 0;
         }
+
         h1 {
-            color: #4caf50; /* Green for the main heading */
+            color: #4caf50;
+            font-size: 36px;
+            margin-bottom: 20px;
         }
+
         h2 {
-            color: #2196F3; /* Blue for subheadings */
+            color: #2196F3;
+            font-size: 24px;
+            margin-top: 20px;
         }
+
+        /* Form container */
         form {
-            background-color: white; /* White background for forms */
-            border-radius: 8px; /* Rounded corners */
-            padding: 20px;
-            margin: 20px auto; /* Center the form */
-            width: 300px; /* Set a fixed width */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
+
+        /* Form elements */
         label {
             display: block;
-            margin: 10px 0 5px; /* Spacing for labels */
+            margin: 15px 0 5px;
+            font-weight: bold;
+            text-align: left;
         }
+
+        input[type="text"], input[type="password"], input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
         input[type="text"], input[type="password"] {
-            width: 100%; /* Full width for inputs */
-            padding: 10px; /* Padding inside inputs */
-            border: 1px solid #ccc; /* Light gray border */
-            border-radius: 4px; /* Rounded corners */
-            margin-bottom: 15px; /* Space below each input */
+            font-size: 16px;
         }
+
         input[type="submit"] {
-            width: 100%; /* Full width for submit button */
-            padding: 10px; /* Padding inside button */
-            border: none; /* No border */
-            border-radius: 4px; /* Rounded corners */
-            cursor: pointer; /* Pointer cursor on hover */
-            transition: background-color 0.3s ease; /* Smooth transition */
+            cursor: pointer;
+            font-size: 18px;
+            border: none;
+            transition: all 0.3s ease;
         }
+
+        /* Specific button styles */
         input[type="submit"].register {
-            background-color: #4caf50; /* Green for Register button */
-            color: white; /* White text */
+            background-color: #4caf50;
+            color: white;
         }
+
         input[type="submit"].register:hover {
-            background-color: #45a049; /* Darker green on hover */
+            background-color: #45a049;
         }
+
         input[type="submit"].login {
-            background-color: #2196F3; /* Blue for Login button */
-            color: white; /* White text */
+            background-color: #2196F3;
+            color: white;
         }
+
         input[type="submit"].login:hover {
-            background-color: #1976D2; /* Darker blue on hover */
+            background-color: #1976D2;
         }
+
+        /* Error message styling */
         .error {
-            color: red; /* Red for error messages */
-            margin-bottom: 15px; /* Space below error message */
+            color: red;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        /* Additional responsive styling */
+        @media (max-width: 480px) {
+            form {
+                padding: 15px;
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
         }
     </style>
     <title>Student Enrollment</title>
 </head>
 <body>
     <h1>Enrollment Page</h1>
-    
+
     <h2>New Student? Please Register Here.</h2>
     <form th:action="@{/students/register}" th:object="${student}" method="post">
         <label for="username">Username:</label>
