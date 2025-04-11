@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Light blue background */
+            color: #333; /* Dark text color */
+            padding: 20px;
+            text-align: center; /* Centered text for headings */
+        }
+        h1 {
+            color: #4caf50; /* Green for the main heading */
+        }
+        h2 {
+            color: #2196F3; /* Blue for subheadings */
+        }
+        table {
+            width: 50%; /* Table width */
+            margin: 20px auto; /* Center the table */
+            border-collapse: collapse; /* Remove spacing between cells */
+        }
+        th, td {
+            border: 1px solid #ccc; /* Light gray border */
+            padding: 10px; /* Padding for cells */
+            text-align: left; /* Left-aligned text */
+        }
+        th {
+            background-color: #4caf50; /* Green header */
+            color: white; /* White text */
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9; /* Light gray for even rows */
+        }
+        button {
+            padding: 10px 15px; /* Padding inside button */
+            background-color: #4caf50; /* Green button */
+            color: white; /* White text */
+            border: none; /* No border */
+            border-radius: 4px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: background-color 0.3s ease; /* Smooth transition */
+            width: 20%; /* Set button width */
+            margin-top: 20px; /* Space above button */
+        }
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+    </style>
+    <title>Confirmation Page</title>
+</head>
+<body>
+<h1>Confirmation</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Duration</th>
+            <th>Fee</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="program : ${selectedPrograms}">
+            <td th:text="${program.programCode}"></td>
+            <td th:text="${program.programName}"></td>
+            <td th:text="${program.duration}"></td>
+            <td th:text="${program.fee}"></td>
+        </tr>
+    </tbody>
+</table>
+<h2>Total Fee: <span th:text="${totalFee}"></span></h2>
+
+<!-- Updated Form with Individual Program Codes and Fees -->
+<form action="/students/save" method="post">
+    <div th:each="program : ${selectedPrograms}">
+        <input type="hidden" th:name="selectedPrograms" th:value="${program.programCode}"/>
+        <input type="hidden" th:name="programFees" th:value="${program.fee}"/>
+    </div>
+    <input type="hidden" th:name="totalfee" th:value="${totalFee}"/>
+    <button type="submit">Confirm and Pay</button>
+</form>
+</body>
+</html>

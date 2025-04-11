@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Light blue background */
+            color: #333; /* Dark text color */
+            padding: 20px;
+        }
+        h1 {
+            color: #4caf50; /* Green for the main heading */
+            text-align: left; /* Align heading to the left */
+        }
+        h2 {
+            color: #2196F3; /* Blue for subheadings */
+            text-align: left; /* Align subheading to the left */
+        }
+        table {
+            width: 50%; /*table width */
+            margin: 20px 0; /* Spacing above and below */
+            border-collapse: collapse; /* Remove spacing between cells */
+        }
+        th, td {
+            border: 1px solid #ccc; /* Light gray border */
+            padding: 10px; /* Padding for cells */
+            text-align: left; /* Left-aligned text */
+        }
+        th {
+            background-color: #4caf50; /* Green header */
+            color: white; /* White text */
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9; /* Light gray for even rows */
+        }
+        label {
+            display: block; /* Block display for labels */
+            margin: 10px 0 5px; /* Spacing for labels */
+            text-align: left; /* Align label text to the left */
+        }
+        input[type="text"], input[type="month"] {
+            width: calc(100% - 20px); /* Full width minus padding */
+            padding: 10px; /* Padding inside inputs */
+            border: 1px solid #ccc; /* Light gray border */
+            border-radius: 4px; /* Rounded corners */
+            margin-bottom: 15px; /* Space below each input */
+        }
+        button {
+            padding: 10px 15px; /* Padding inside button */
+            background-color: #4caf50; /* Green button */
+            color: white; /* White text */
+            border: none; /* No border */
+            border-radius: 4px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: background-color 0.3s ease; /* Smooth transition */
+            width: 20%; /* Full width */
+            text-align: center; /* Center text in button */
+        }
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+    </style>
+    <title>Program List</title>
+</head>
+<body>
+    <h1>Please Select Your Program</h1>
+    <form action="/students/confirmation" method="post">
+        <table>
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Duration</th>
+                    <th>Fee</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="program : ${programs}">
+                    <td th:text="${program.programCode}"></td>
+                    <td th:text="${program.programName}"></td>
+                    <td th:text="${program.duration}"></td>
+                    <td th:text="${program.fee}"></td>
+                    <td>
+                        <input type="checkbox" name="selectedPrograms" th:value="${program.programCode}"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr> <!-- Horizontal Line for Separation -->
+
+        <h2>Credit Card Details</h2>
+        <label for="cardholderName">Cardholder Name:</label>
+        <input type="text" id="cardholderName" name="cardholderName" required>
+
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" name="cardNumber" required pattern="\d{16}" maxlength="16" placeholder="**** **** **** **** ****">
+
+        <label for="expirationDate">Expiration Date:</label>
+        <input type="month" id="expirationDate" name="expirationDate" required>
+
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" name="cvv" required pattern="\d{3}" maxlength="3" placeholder="***">
+
+        <button type="submit">Proceed to Confirmation</button>
+    </form>
+    <!--<a href="/students/register">Register New Student</a>-->
+</body>
+</html>

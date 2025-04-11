@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Light blue background */
+            color: #333; /* Dark text color */
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #4caf50; /* Green color for the heading */
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .button {
+            display: inline-block;
+            text-decoration: none;
+            padding: 15px 25px;
+            border-radius: 5px; /* Rounded corners */
+            margin: 10px; /* Space between buttons */
+            transition: background-color 0.3s ease; /* Smooth transition */
+        }
+        .button.homepage {
+            background-color: #4caf50; /* Green for Homepage */
+            color: white; /* White text */
+        }
+        .button.homepage:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+        .button.profile {
+            background-color: #2196F3; /* Blue for Edit Profile */
+            color: white; /* White text */
+        }
+        .button.profile:hover {
+            background-color: #1976D2; /* Darker blue on hover */
+        }
+    </style>
+    <title>Successful Enrollment</title>
+</head>
+<body>
+    <h1>You are enrolled successfully!</h1>
+    <p>Thank you.</p>
+    <a class="button homepage" href="/">Go to Homepage</a>
+    <a class="button profile" href="/students/profile">Edit Profile</a>
+</body>
+</html>
