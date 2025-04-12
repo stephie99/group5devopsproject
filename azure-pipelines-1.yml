@@ -32,6 +32,23 @@ stages:
               testResultsFiles: '**/surefire-reports/TEST-*.xml'
               goals: 'package'
 
+          - task: SonarQubePrepare@5
+            inputs:
+              SonarQube: 'group5sonarqube'
+              scannerMode: 'CLI'
+              configMode: 'manual'
+              cliProjectKey: 'stephie99_group5devopsproject'
+              cliProjectName: 'group5devopsproject'
+              cliSources: '.'
+
+          - task: SonarQubeAnalyze@5
+            inputs:
+              additionalArguments: '-X'
+
+          - task: SonarQubePublish@5
+            inputs:
+              pollingTimeoutSec: '300'
+
           - task: PublishBuildArtifacts@1
             inputs:
               PathtoPublish: 'target'
