@@ -48,7 +48,7 @@
             background-color: #45a049; /* Darker green on hover */
         }
     </style>
-    <title>Confirmation Page</title>
+    <title>Payment Confirmation Page</title>
 </head>
 <body>
 <h1>Confirmation</h1>
@@ -70,7 +70,7 @@
         </tr>
     </tbody>
 </table>
-<h2>Total Fee: <span th:text="${totalFee}"></span></h2>
+<h2>Total Amount : <span th:text="${totalFee}"></span></h2>
 
 <!-- Updated Form with Individual Program Codes and Fees -->
 <form action="/students/save" method="post">
@@ -79,7 +79,7 @@
         <input type="hidden" th:name="programFees" th:value="${program.fee}"/>
     </div>
     <input type="hidden" th:name="totalfee" th:value="${totalFee}"/>
-    <button type="submit">Confirm and Pay</button>
+    <button type="submit">Confirm Payment Details.</button>
 </form>
 </body>
 </html>
