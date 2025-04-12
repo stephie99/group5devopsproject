@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  name: stephlab4agent
+  name: StephAgentPool
 
 steps:
 - task: Maven@3
