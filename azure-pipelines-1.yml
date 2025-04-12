@@ -1,0 +1,88 @@
+trigger:
+  - main
+
+pool:
+  name: Group5AgentPool
+
+variables:
+  buildConfiguration: 'Release'
+
+stages:
+  # ------------------------------
+  # CI - BUILD & TEST
+  # ------------------------------
+  - stage: Build
+    displayName: 'Build and Test'
+    jobs:
+      - job: Build
+        steps:
+          - task: Maven@3
+            inputs:
+              mavenPomFile: 'pom.xml'
+              mavenOptions: '-Xmx3072m'
+              javaHomeOption: 'JDKVersion'
+              jdkVersionOption: '21.0.4'
+              jdkArchitectureOption: 'x64'
+              publishJUnitResults: true
+              testResultsFiles: '**/surefire-reports/TEST-*.xml'
+              goals: 'package'
+
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: 'target'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
+
+  # ------------------------------
+  # CD - DEPLOYMENT
+  # ------------------------------
+  - stage: Deliver
+    displayName: 'Deliver Artifacts'
+    dependsOn: Build
+    jobs:
+      - job: Deliver
+        steps:
+          - download: current
+            artifact: drop
+
+          - script: echo "Delivering artifact to next stage"
+            displayName: 'Mock Deliver Step'
+
+  - stage: DeployToDev
+    displayName: 'Deploy to Dev Environment'
+    dependsOn: Deliver
+    jobs:
+      - job: DeployDev
+        steps:
+          # Start the app in the background to avoid pipeline stalls
+          - script: |
+              echo "Starting Dev Deployment"
+              start /B java -jar $(Pipeline.Workspace)/drop/Group5_DevOpsProject-0.0.1-SNAPSHOT.jar --server.port=8081 --spring.profiles.active=dev
+            displayName: 'Deploy to Dev Port 8081'
+
+  - stage: DeployToQAT
+    displayName: 'Deploy to QAT Environment'
+    dependsOn: DeployToDev
+    jobs:
+      - job: DeployQAT
+        steps:
+          - script: echo "Mock Deployment to QAT"
+            displayName: 'Deploy to QAT'
+
+  - stage: DeployToStaging
+    displayName: 'Deploy to Staging Environment'
+    dependsOn: DeployToQAT
+    jobs:
+      - job: DeployStaging
+        steps:
+          - script: echo "Mock Deployment to Staging"
+            displayName: 'Deploy to Staging'
+
+  - stage: DeployToProduction
+    displayName: 'Deploy to Production Environment'
+    dependsOn: DeployToStaging
+    jobs:
+      - job: DeployProd
+        steps:
+          - script: echo "Mock Deployment to Production"
+            displayName: 'Deploy to Production'
