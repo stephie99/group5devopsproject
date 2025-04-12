@@ -54,7 +54,7 @@ stages:
     jobs:
       - job: DeployDev
         steps:
-          # Start the app in the background to avoid pipeline stalls
+          # Start the app in the background to avoid pipeline stall
           - script: |
               echo "Starting Dev Deployment"
               start /B java -jar $(Pipeline.Workspace)/drop/Group5_DevOpsProject-0.0.1-SNAPSHOT.jar --server.port=8081 --spring.profiles.active=dev
