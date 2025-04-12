@@ -54,9 +54,10 @@ stages:
     jobs:
       - job: DeployDev
         steps:
+          # Start the app in the background to avoid pipeline stalls
           - script: |
               echo "Starting Dev Deployment"
-              java -jar $(Pipeline.Workspace)/drop/Group5_DevOpsProject-0.0.1-SNAPSHOT.jar --server.port=8081 --spring.profiles.active=dev
+              start /B java -jar $(Pipeline.Workspace)/drop/Group5_DevOpsProject-0.0.1-SNAPSHOT.jar --server.port=8081 --spring.profiles.active=dev
             displayName: 'Deploy to Dev Port 8081'
 
   - stage: DeployToQAT
