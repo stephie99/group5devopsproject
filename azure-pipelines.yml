@@ -54,11 +54,17 @@ stages:
     jobs:
       - job: DeployDev
         steps:
-          # Start the app in the background to avoid pipeline stall
+          # Start the app in the background to avoid pipeline stalls
           - script: |
               echo "Starting Dev Deployment"
-              start /B java -jar $(Pipeline.Workspace)/drop/Group5_DevOpsProject-0.0.1-SNAPSHOT.jar --server.port=8081 --spring.profiles.active=dev
+              java -jar $(Pipeline.Workspace)/drop/Group5_DevOpsProject-0.0.1-SNAPSHOT.jar --server.port=8081 --spring.profiles.active=dev > application.log 2>&1 &
             displayName: 'Deploy to Dev Port 8081'
+
+          # Verify application is running
+          - script: |
+              echo "Checking if application is running..."
+              curl http://localhost:8081/actuator/health || echo "Application might not be running yet."
+            displayName: 'Check Application Health'
 
   - stage: DeployToQAT
     displayName: 'Deploy to QAT Environment'
