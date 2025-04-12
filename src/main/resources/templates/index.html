@@ -145,8 +145,28 @@
         <label for="loginUsername">Username:</label>
         <input type="text" id="loginUsername" th:field="*{username}" required/>
 
-        <label for="loginPassword">Password:</label>
-        <input type="password" id="loginPassword" th:field="*{password}" required/>
+<label for="loginPassword">Password:</label>
+<div style="position: relative; display: inline-block; width: 100%;">
+    <input type="password" id="loginPassword" th:field="*{password}" required style="width: 100%; padding-right: 40px;"/>
+    <span id="toggleLoginPassword" 
+          style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); cursor: pointer;">
+        👁️
+    </span>
+</div>
+
+<script>
+    const loginPasswordInput = document.getElementById("loginPassword");
+    const toggleLoginPassword = document.getElementById("toggleLoginPassword");
+
+    toggleLoginPassword.addEventListener("click", function () {
+        // Toggle password visibility
+        const type = loginPasswordInput.getAttribute("type") === "password" ? "text" : "password";
+        loginPasswordInput.setAttribute("type", type);
+
+        // Change the icon for better user feedback
+        this.textContent = type === "password" ? "👁️" : "🙈";
+    });
+</script>
 
         <input class="login" type="submit" value="Login"/>
     </form>
